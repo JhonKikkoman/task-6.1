@@ -1,0 +1,74 @@
+/** @format */
+
+label.ref_label {
+  display: block;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.refresh_container {
+  min-width: 200px;
+  display: flex;
+  gap: 10px;
+}
+
+button#ref_btn {
+  width: 30px;
+  border-radius: 50%;
+  background-color: white;
+  border-width: 1px;
+  cursor: pointer;
+  padding: 2px;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+
+.material-symbols-outlined {
+  display: flex;
+  justify-content: center;
+  color: #2ae52a;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.note_container {
+  display: flex;
+  margin: 0 auto;
+}
+
+form.form_wrapper {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+label.hint_label {
+  display: block;
+  padding: 10px 0;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+textarea#note_field {
+  resize: none;
+  padding: 5px;
+  box-sizing: border-box;
+  width: 260px;
+  height: 100px;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.submit_btn {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  background-color: white;
+  border-width: 1px;
+  cursor: pointer;
+  border-radius: 50%;
+  padding: 3px;
+}
