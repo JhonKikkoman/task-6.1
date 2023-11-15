@@ -26,23 +26,18 @@ function App() {
       }
     };
     fch();
-    return () => {
-      ignore = true;
-    };
-  }, []);
-
-  useEffect(() => {
-    let ignore = false;
     if (!ignore) {
-      (async () => {
-        await fetch('http://localhost:7070/notes', {
-          method: 'POST',
-          body: JSON.stringify({
-            id: 0,
-            content: state,
-          }),
-        });
-      })();
+      if (state !== '') {
+        (async () => {
+          await fetch('http://localhost:7070/notes', {
+            method: 'POST',
+            body: JSON.stringify({
+              id: 0,
+              content: state,
+            }),
+          });
+        })();
+      }
     }
 
     return () => {
