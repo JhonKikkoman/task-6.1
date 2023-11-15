@@ -14,7 +14,6 @@ export type stateT = {
 function App() {
   const [state, setState] = useState('');
   const [response, setResponse] = useState<stateT[]>([]);
-  console.log(response);
 
   useEffect(() => {
     let ignore = false;
@@ -37,6 +36,7 @@ function App() {
             }),
           });
         })();
+        setState('');
       }
     }
 
@@ -49,11 +49,19 @@ function App() {
     setState(str);
   };
 
+  const filterClbkNew = (arr: stateT[]) => {
+    setResponse(arr);
+  };
+
+  const refreshClbk = (arr: stateT[]) => {
+    setResponse(arr);
+  };
+
   return (
     <>
       <div className='main_container'>
-        <Refresh />
-        <ShowResult arrContent={response} />
+        <Refresh refreshUpdate={refreshClbk} />
+        <ShowResult arrContent={response} filterClbk={filterClbkNew} />
         <InputNote strClbk={funClbk} />
       </div>
     </>
