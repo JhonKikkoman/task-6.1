@@ -6,34 +6,45 @@ import { InputNote } from './components/InpuNote/InputNote';
 import { Refresh } from './components/Refresh/refresh';
 import { ShowResult } from './components/ShowResult/ShowResult';
 
+export type stateT = {
+  id: number;
+  content: string;
+};
+
 function App() {
   const [state, setState] = useState('');
-  // состояние для Эффекта
-  const [response, setResponse] = useState(null);
-
+  const [response, setResponse] = useState<stateT[]>([]);
   console.log(response);
+
   useEffect(() => {
-    // флаг для фетч
     let ignore = false;
-    // асинхронный фетч
     const fch = async () => {
-      const data = await fetch('http://localhost:7070/notes', {
-        method: 'POST',
-        body: JSON.stringify({
-          id: 0,
-          content: state,
-        }),
-      });
-      // ответ от сервера
-      const json = await data.json();
-      console.log(json);
-      // устанавливаем в состояние ответ c проверкой флага
+      const response = await fetch('http://localhost:7070/notes');
+      const result = await response.json();
       if (!ignore) {
-        setResponse(json);
+        setResponse(result);
       }
     };
-    fch().catch(console.error);
-    // функция Clean-up
+    fch();
+    return () => {
+      ignore = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    let ignore = false;
+    if (!ignore) {
+      (async () => {
+        await fetch('http://localhost:7070/notes', {
+          method: 'POST',
+          body: JSON.stringify({
+            id: 0,
+            content: state,
+          }),
+        });
+      })();
+    }
+
     return () => {
       ignore = true;
     };
@@ -47,7 +58,7 @@ function App() {
     <>
       <div className='main_container'>
         <Refresh />
-        <ShowResult />
+        <ShowResult arrContent={response} />
         <InputNote strClbk={funClbk} />
       </div>
     </>

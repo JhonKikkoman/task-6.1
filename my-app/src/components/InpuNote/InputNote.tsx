@@ -13,7 +13,6 @@ type propT = {
 };
 
 export function InputNote({ strClbk }: propT) {
-  // состояние Input
   const [state, setState] = useState('');
 
   const handlerSubmit = (e: any) => {
@@ -29,8 +28,8 @@ export function InputNote({ strClbk }: propT) {
 
   return (
     <>
-      <div className='note_container' onSubmit={handlerSubmit}>
-        <form action='' className='form_wrapper'>
+      <div className='note_container'>
+        <form action='' className='form_wrapper' onSubmit={handlerSubmit}>
           <label htmlFor='note_field' className='hint_label'>
             New note
           </label>

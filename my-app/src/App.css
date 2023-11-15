@@ -72,3 +72,17 @@ textarea#note_field {
   border-radius: 50%;
   padding: 3px;
 }
+
+.result_container {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: stretch;
+  justify-content: space-between;
+}
+
+.item_container {
+  display: block;
+  border: 1px solid black;
+  box-sizing: border-box;
+  padding: 15px;
+}
