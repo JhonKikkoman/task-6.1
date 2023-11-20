@@ -9,7 +9,7 @@ type targetT = {
 };
 
 type propT = {
-  strClbk: Function;
+  strClbk: (args: string) => void;
 };
 
 export function InputNote({ strClbk }: propT) {

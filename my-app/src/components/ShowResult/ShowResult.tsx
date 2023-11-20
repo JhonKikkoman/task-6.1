@@ -5,7 +5,7 @@ import { stateT } from '../../App';
 
 type propT = {
   arrContent: stateT[];
-  filterClbk: Function;
+  filterClbk: (args: stateT[]) => void;
 };
 
 export function ShowResult({ arrContent, filterClbk }: propT) {

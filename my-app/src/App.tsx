@@ -18,10 +18,14 @@ function App() {
   useEffect(() => {
     let ignore = false;
     const fch = async () => {
-      const response = await fetch('http://localhost:7070/notes');
-      const result = await response.json();
-      if (!ignore) {
-        setResponse(result);
+      try {
+        const response = await fetch('http://localhost:7070/notes');
+        const result = await response.json();
+        if (!ignore) {
+          setResponse(result);
+        }
+      } catch (error) {
+        console.log(error);
       }
     };
     fch();
