@@ -12,45 +12,37 @@ export type stateT = {
 };
 
 function App() {
-  const [state, setState] = useState('');
   const [response, setResponse] = useState<stateT[]>([]);
 
   useEffect(() => {
-    let ignore = false;
-    const fch = async () => {
+    (async () => {
       try {
         const response = await fetch('http://localhost:7070/notes');
         const result = await response.json();
-        if (!ignore) {
-          setResponse(result);
-        }
+        setResponse(result);
       } catch (error) {
-        console.log(error);
+        throw new Error(`Ошибка ${error}`);
       }
-    };
-    fch();
-    if (!ignore) {
-      if (state !== '') {
-        (async () => {
-          await fetch('http://localhost:7070/notes', {
-            method: 'POST',
-            body: JSON.stringify({
-              id: 0,
-              content: state,
-            }),
-          });
-        })();
-        setState('');
-      }
-    }
-
-    return () => {
-      ignore = true;
-    };
-  }, [state]);
+    })();
+  }, []);
 
   const funClbk = (str: string) => {
-    setState(str);
+    (async () => {
+      try {
+        await fetch('http://localhost:7070/notes', {
+          method: 'POST',
+          body: JSON.stringify({
+            id: 0,
+            content: str,
+          }),
+        });
+        const response = await fetch('http://localhost:7070/notes');
+        const result = await response.json();
+        setResponse(result);
+      } catch (error) {
+        throw new Error(`Ошибка отправки POST - ${error}`);
+      }
+    })();
   };
 
   const filterClbkNew = (arr: stateT[]) => {

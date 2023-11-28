@@ -1,30 +1,28 @@
 /** @format */
 
 import { useEffect, useState } from 'react';
+import { stateT } from '../../App';
 
 type propT = {
-  refreshUpdate: Function;
+  refreshUpdate: (arr: stateT[]) => void;
 };
 
 export function Refresh({ refreshUpdate }: propT) {
   const [state, setState] = useState(false);
   useEffect(() => {
-    let ignore = false;
     if (state) {
-      const fch = async () => {
-        const response = await fetch('http://localhost:7070/notes');
-        const result = await response.json();
-        if (!ignore) {
+      try {
+        (async () => {
+          const response = await fetch('http://localhost:7070/notes');
+          const result = await response.json();
           refreshUpdate(result);
-        }
-      };
-      fch();
+        })();
+      } catch (error) {
+        throw new Error(`Ошибка ${error}`);
+      }
+
       setState(false);
     }
-
-    return () => {
-      ignore = true;
-    };
   }, [state, refreshUpdate]);
 
   return (
